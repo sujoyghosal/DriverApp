@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Driver</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="GPSAlertDialogTitle">GPS Setting</string>
+    <string name="GPSAlertDialogMessage">Please turn on GPS from Settings</string>
+    <string name="settings">Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_gps">GPSActivity</string>
+    <string name="radius_prompt">Within Distance (km)</string>
+    <string name="home">home</string>
+    <string name="title_activity_checkin">BusRoutes</string>
+    <string name="title_activity_home">HomeActivity</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/debug.keystore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/libs/apigee-android-2.0.10.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/libs/gcm.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/libs/json-simple-1.1.1.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/my-release-key.keystore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bustracker/driver/driverapp/CustomSpinnerSelectionListener.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bustracker/driver/driverapp/GPSTracker.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bustracker/driver/driverapp/MainActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bustracker/driver/driverapp/Map.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bustracker/driver/driverapp/RouteListActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/bustracker/driver/driverapp/RoutesUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/bus_stop.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/menu" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-mdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values-w820dp" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
