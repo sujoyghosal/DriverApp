@@ -40,93 +40,70 @@
                 android:layout_marginTop="46dp"/>
 
             <Spinner
-                android:layout_width="305dp"
-                android:layout_height="42dp"
+                android:layout_width="240dp"
+                android:layout_height="51dp"
                 android:id="@+id/spinnerRoutes"
                 android:spinnerMode="dropdown"
                 android:background="#ffff2019"
-                android:layout_gravity="center_horizontal"
                 style="@style/mySpinnerItemStyle"
+                android:layout_gravity="center_horizontal"
                 android:layout_below="@+id/textViewSelectRoute"
-                android:layout_alignStart="@+id/buttonShowStops"
-                android:layout_alignEnd="@+id/buttonShowStops"/>
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/textViewStatus"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView"
-                android:src="@drawable/bus_stop"
-                android:layout_alignTop="@+id/buttonShowStops"
-                android:layout_alignEnd="@+id/imageView3"/>
-
-            <Button
-                android:layout_width="229dp"
-                android:layout_height="wrap_content"
-                android:text="Send Notification For Bus Stop"
-                android:id="@+id/buttonShowStops"
-                android:background="#ff191cff"
-                android:layout_gravity="center_horizontal"
-                android:onClick="getStopsByRouteName"
-                android:textColor="#FFFFFF"
-                android:textSize="22dp"
-                android:layout_below="@+id/spinnerRoutes"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="77dp"/>
-
-            <Button
-                android:layout_width="228dp"
-                android:layout_height="wrap_content"
-                android:text="Send Bus Current Location"
-                android:id="@+id/buttonCurrentLocation"
-                android:onClick="sendBusLocationUpdate"
-                android:background="#ffff0819"
-                android:textSize="20dp"
-                android:layout_marginTop="68dp"
-                android:textColor="#FFFFFF"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/buttonShowStops"
-                android:layout_alignStart="@+id/buttonShowStops"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView3"
-                android:src="@drawable/bus_pin"
-                android:layout_alignTop="@+id/buttonCurrentLocation"
-                android:layout_toEndOf="@+id/buttonCurrentLocation"/>
+                android:src="@drawable/bus_stop_clipped_rev_1"
+                android:contentDescription="cv"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/textViewStatus"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp" />
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/imageViewShare"
-            android:src="@drawable/share2"
-            android:onClick="performShare"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp" />
-
     </LinearLayout>
 
-    <TextView
-        android:layout_width="fill_parent"
+    <Button
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="This app uses GPS and it takes a few seconds to catch the signal initially.If results do not load at first go, please come back to this screen and try again."
-        android:id="@+id/textViewST"
-        android:textStyle="italic"
+        android:text="Send Notification For Bus Stop"
+        android:id="@+id/buttonShowStops"
+        android:background="#ff191cff"
+        android:onClick="getStopsByRouteName"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/switchLocationPush"/>
+
+    <Switch
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="Location Push"
+        android:id="@+id/switchLocationPush"
+        android:textSize="15sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/buttonShowStops"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:fontFamily="Calibri"
+        />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageViewShare"
+        android:src="@drawable/share2"
+        android:onClick="performShare"
+        android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="#ff8fb2ff" />
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

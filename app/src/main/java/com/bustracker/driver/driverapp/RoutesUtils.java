@@ -12,16 +12,16 @@ import java.util.ArrayList;
 
 public class
         RoutesUtils {
-        public static ArrayList<RouteListActivity.RouteStopsObject> routeStopsArray = new ArrayList<>();
+        public static ArrayList<RouteListActivity.RouteStopsObject> routeStopsArray = new ArrayList<RouteListActivity.RouteStopsObject>();
         private static String currentDeviceLatitude = null;
         private static String currentDeviceLongitude = null;
         public static int routeStopsRadius = 1;
-        public static ArrayList<RouteObject> allRoutesArray = new ArrayList<>();
+        public static ArrayList<RouteObject> allRoutesArray = new ArrayList<RouteObject>();
 
         public static GPSTracker gpsTracker = null;
     static final String NOTIFIER = "stopnotifier";
     public static String deviceID = "";
-    public static ArrayList<Subscriptions> subscriptionsArray = new ArrayList<>();
+    public static ArrayList<Subscriptions> subscriptionsArray = new ArrayList<Subscriptions>();
     public static String routeName = "ROUTE1";
     public static boolean locationFeed = false;
     public static ArrayList routeNames = new ArrayList();
@@ -108,7 +108,7 @@ public class
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         builder.setMessage(msg)
                 .setTitle(title)
-                .setIcon(R.drawable.bus_stop)
+                .setIcon(R.drawable.bus_stop_clipped_rev_1)
                 .setInverseBackgroundForced(true)
                 .setNegativeButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

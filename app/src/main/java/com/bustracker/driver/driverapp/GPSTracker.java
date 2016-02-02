@@ -297,17 +297,8 @@ public String getCountryName(Context context)
         RoutesUtils.setCurrentDeviceLatitude(Double.toString(location.getLatitude()));
         RoutesUtils.setCurrentDeviceLongitude(Double.toString(location.getLongitude()));
 
-        Log.d("$$$$Location Update:", msg);
+//        Log.d("$$$$Location Update:", msg);
 
-        if(RoutesUtils.locationFeed) {
-            String[] br = new String[2];
-            br[0] = "http://sujoyghosal-test.apigee.net/busroute/sendcurrentbuslocation?id="
-                    + RoutesUtils.deviceID + "&route=" + Uri.encode(RoutesUtils.routeName)
-                    + "&latitude=" + RoutesUtils.getCurrentDeviceLatitude()
-                    + "&longitude=" + RoutesUtils.getCurrentDeviceLongitude();
-            Log.d("####","Started Location Feed to Apigee - LatLng=" + location.getLatitude() + "," + location.getLongitude());
-            new MainActivity.SendCurrentBusLocation().execute(br);
-        }
   }
 
     @Override

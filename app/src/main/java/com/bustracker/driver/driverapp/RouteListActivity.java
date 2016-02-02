@@ -71,7 +71,7 @@ public class RouteListActivity extends ListActivity {
         startActivity(intent);
     }
 
-    public void createMapForAllFriends(View v){
+    public void createMapForAllStops(View v){
         Intent intent = new Intent(this, Map.class);
         intent.putExtra("POSITION", -1); //show all
         startActivity(intent);

@@ -12,7 +12,7 @@ public class CustomSpinnerSelectionListener implements OnItemSelectedListener {
 
         Toast.makeText(parent.getContext(),
                 parent.getItemAtPosition(pos).toString(),
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_SHORT).show();
         RoutesUtils.routeName = parent.getItemAtPosition(pos).toString();
 
     }

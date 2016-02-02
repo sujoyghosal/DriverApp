@@ -35,7 +35,7 @@
         android:id="@+id/imageViewAllMap"
         android:layout_width="40dp"
         android:layout_height="45dp"
-        android:onClick="createMapForAllFriends"
+        android:onClick="createMapForAllStops"
         android:src="@drawable/thin_pin"
         android:layout_gravity="center"
         android:baselineAlignBottom="false"

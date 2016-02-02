@@ -1,16 +1,27 @@
 package com.bustracker.driver.driverapp;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.Toast;
+
+//import com.android.vending.billing.IInAppBillingService;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -19,19 +30,25 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
-
+import java.util.Calendar;
+import java.util.TimeZone;
 
 
 public class MainActivity extends Activity {
 
     private Context context = this;
+    private Switch locationSwitch;
     private  static ProgressDialog progressDialog;
+    public static AlarmManager alarmManager;
+    public static PendingIntent pendingIntent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         if (!RoutesUtils.isNetConnected(context)) {
+
+        if (!RoutesUtils.isNetConnected(context)) {
             RoutesUtils.displayDialog(context, "Error Connecting", "It appears you are not connected to the internet, this app requires an internet connection to work properly.");
         }
         RoutesUtils.loadDeviceLocation(context);
@@ -41,8 +58,13 @@ public class MainActivity extends Activity {
                 new GetAllRoutes().execute("");
         } else
             loadRouteNames();
+        locationSwitch = (Switch)findViewById(R.id.switchLocationPush);
+        locationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sendBusLocationUpdate(isChecked);
+            }
+        });
     }
-
     public void loadRouteNames() {
         if(progressDialog!=null && progressDialog.isShowing())
             progressDialog.dismiss();
@@ -52,12 +74,41 @@ public class MainActivity extends Activity {
         spinnerRoutes.setAdapter(spinnerArrayAdapter);
         spinnerRoutes.setOnItemSelectedListener(new CustomSpinnerSelectionListener());
     }
-    public void sendBusLocationUpdate(View v){
-        RoutesUtils.locationFeed = true;
-        RoutesUtils.displayDialog(context, "Status", "Started Location Updates for this Bus");
+    public void sendBusLocationUpdate(boolean state){
+        RoutesUtils.locationFeed = state;
+        setRecurringAlarm(this, state);
+//        RoutesUtils.displayDialog(context, "Status", "Location Updates for this Bus set to " + state);
+
+    }
+    private void setRecurringAlarm(Context context,boolean on) {
+        Log.d("####", "Setting Alarm....");
+        Calendar updateTime = Calendar.getInstance();
+        updateTime.setTimeZone(TimeZone.getDefault());
+//        updateTime.set(Calendar.HOUR_OF_DAY, 16);
+//        updateTime.set(Calendar.MINUTE, 03);
+        Intent downloader = new Intent(context, LocationServiceReceiver.class);
+        downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        pendingIntent = PendingIntent.getBroadcast(context, 0, downloader, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (on){
+                alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 5000L, 20000L, pendingIntent);
+                Log.d("####", "Started Location Push to Server.");
+                Toast.makeText(getBaseContext(),"Started Location Push to Server.",Toast.LENGTH_SHORT).show();
+        }
+        else {
+                alarmManager.cancel(pendingIntent);
+                Log.d("####", "Cancelled Location Push to Server.");
+                Toast.makeText(this, "Location Updates for this Bus stopped", Toast.LENGTH_SHORT).show();
+        }
+        Log.d("MyActivity", "Set alarmManager.setRepeating to: " + updateTime.getTime().toLocaleString());
     }
 
-    public void getStopsByRouteName(View view){
+    public static void stopAlarm(){
+        if(alarmManager!=null && pendingIntent!=null)
+        alarmManager.cancel(pendingIntent);
+        Log.d("####", "Cancelled Location Push to Server.");
+    }
+    public void getStopsByRouteName(View view) {
         RoutesUtils.routeStopsArray.clear();
         if(!RoutesUtils.allRoutesArray.isEmpty()){
             for(int i=0; i<RoutesUtils.allRoutesArray.size(); i++){
@@ -72,47 +123,7 @@ public class MainActivity extends Activity {
             startActivity(new Intent(context, RouteListActivity.class));
         }
     }
-    public  static class SendCurrentBusLocation extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected void onPreExecute()
-        {
-
-        }
-
-        @Override
-        protected String doInBackground(String... urls) {
-            String response = "";
-
-
-            try {
-                URL routeurl = new URL(urls[0]);
-                HttpURLConnection conn = (HttpURLConnection) routeurl.openConnection();
-                conn.connect();
-                InputStream content = conn.getInputStream();
-                BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                String s;
-                while ((s = buffer.readLine()) != null) {
-                    response += s;
-                }
-
-            } catch (Exception e) {
-                Log.e("Error!!!!", e.toString());
-                return null;
-            }
-
-            Log.d("SendCurrentBusLocation:", response);
-            return response;
-        }
-
-        @Override
-        protected void onPostExecute(String result){
-
-            if (result==null)
-                return;
-            Log.i("SendCurrentBusLocation", "Success. Result = " + result);
-      }
-    }
     public  class GetAllRoutes extends AsyncTask<String, Void, String> {
 
         @Override
@@ -162,8 +173,10 @@ public class MainActivity extends Activity {
                 for(int i=0; i < ar.length(); i++){
                     JSONObject oe = ar.getJSONObject(i);
                     RouteObject routeObject = new RouteObject();
-                    routeObject.setRouteName(oe.getString("name"));
-//                    RouteListActivity.RouteStopsObject rsObject = new RouteListActivity.RouteStopsObject();
+                    if(oe.has("name"))
+                        routeObject.setRouteName(oe.getString("name"));
+                    else
+                        continue;
 
                     if(oe.has("description"))
                         routeObject.setRouteDesc(oe.getString("description"));
@@ -256,9 +269,6 @@ public class MainActivity extends Activity {
             }
         }
     }
-
-
-
     public void performShare(View v){
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
@@ -269,4 +279,13 @@ public class MainActivity extends Activity {
         sharingIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
+
+    @Override
+    public void onBackPressed(){
+        stopAlarm();
+        Log.d("####", "Cancelled Location Push to Server.");
+
+        super.onBackPressed();
+    }
+
 }

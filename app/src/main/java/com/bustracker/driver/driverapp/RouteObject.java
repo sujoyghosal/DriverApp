@@ -1,5 +1,7 @@
 package com.bustracker.driver.driverapp;
 
+import com.bustracker.driver.driverapp.RoutesUtils.Coordinates;
+
 import java.util.ArrayList;
 
 /**
@@ -11,8 +13,8 @@ public class RouteObject {
     private String routeCity = "";
     private String routeState = "";
     private String routeCountry = "";
-    public ArrayList<RoutesUtils.Coordinates> busLocationsArray  = new ArrayList<>();
-    public ArrayList<RouteListActivity.RouteStopsObject> busStopsArray  = new ArrayList<>();
+    public ArrayList<Coordinates> busLocationsArray  = new ArrayList<Coordinates>();
+    public ArrayList<RouteListActivity.RouteStopsObject> busStopsArray  = new ArrayList<RouteListActivity.RouteStopsObject>();
     private String UUID = "";
 
     public RouteObject(String routeName) {
@@ -63,11 +65,11 @@ public class RouteObject {
         this.routeCountry = routeCountry;
     }
 
-    public ArrayList<RoutesUtils.Coordinates> getBusLocationsArray() {
+    public ArrayList<Coordinates> getBusLocationsArray() {
         return busLocationsArray;
     }
 
-    public void setBusLocationsArray(ArrayList<RoutesUtils.Coordinates> busLocationsArray) {
+    public void setBusLocationsArray(ArrayList<Coordinates> busLocationsArray) {
         this.busLocationsArray = busLocationsArray;
     }
 

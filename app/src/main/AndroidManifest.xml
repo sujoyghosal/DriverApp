@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -48,7 +49,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBEkXBfFd3G2Xl6e6D8E0MfGeFP0wl1v4Y" />
+            android:value="AIzaSyCeWmfD0li1jMh9I_UtcYQtPwUp4_ebXqA" />
         <!--
         release key           android:value="AIzaSyCeWmfD0li1jMh9I_UtcYQtPwUp4_ebXqA"/>
         SH1=E8:3B:C3:A6:22:DD:AE:85:07:DC:47:77:8E:90:FE:04:6A:E0:E4:32
@@ -62,6 +63,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <service android:name=".LocationService" ></service>
+        <receiver android:name=".LocationServiceReceiver" ></receiver>
     </application>
 
 </manifest>
